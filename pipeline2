@@ -49,7 +49,7 @@ pipeline {
    post{
           always {
                   sh '''
-                  aws ec2 create-image --instance-id i-0b928e9c80678314a  --name "bharath213" --no-reboot 
+                  aws ec2 create-image --instance-id i-0b928e9c80678314a --region eu-north-1 --name "bharath213" --no-reboot 
                      '''
               }
       }
