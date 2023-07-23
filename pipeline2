@@ -1,0 +1,57 @@
+pipeline {
+    agent {label "slave"}
+    stages{
+        stage ("Users list") {
+            steps {
+                sh "cat /etc/passwd"
+            }
+        }
+        stage ("Linux OS") {
+            steps {
+                sh "cat /etc/os-release"
+            }
+        }
+        stage ("Hello") {
+            steps {
+                echo "Hollooo world"
+            }
+        }
+        stage ("linux") {
+            steps {
+                script {
+                    sh '''
+                    df -h
+                    '''
+                }
+            }
+        }
+        stage ("create a directory") {
+            steps {
+                sh "sudo mkdir /tmp/my-test-06"
+            }
+        }
+        stage ("creating a file") {
+                 steps {
+                    sh '''
+                    sudo touch /tmp/my-test-06/test1.txt
+                    sudo chown -R jenkins:jenkins /tmp/my-test-06
+                    sudo chmod -R 777 /tmp/my-test-06
+                    sudo echo "Hi, this is a test file" >> /tmp/my-test-06/test1.txt
+                    '''
+                 }
+            }    
+        stage ("output") {
+            steps {
+                sh "cat /tmp/my-test-06/test1.txt"
+            }
+        }
+    }
+   post{
+          always {
+                  ssh '''
+                  aws ec2 create-image --instance-id i-0b928e9c80678314a  --name "bharath213" --no-reboot 
+                     '''
+              }
+      }
+
+}
