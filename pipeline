@@ -27,22 +27,22 @@ pipeline {
         }
         stage ("create a directory") {
             steps {
-                sh "sudo mkdir /tmp/my-test-04"
+                sh "sudo mkdir /tmp/my-test-05"
             }
         }
         stage ("creating a file") {
                  steps {
                     sh '''
-                    sudo touch /tmp/my-test-04/test1.txt
-                    sudo chown -R jenkins:jenkins /tmp/my-test-04
-                    sudo chmod -R 777 /tmp/my-test-04
-                    sudo echo "Hi, this is a test file" >> /tmp/my-test-04/test1.txt
+                    sudo touch /tmp/my-test-05/test1.txt
+                    sudo chown -R jenkins:jenkins /tmp/my-test-05
+                    sudo chmod -R 777 /tmp/my-test-05
+                    sudo echo "Hi, this is a test file" >> /tmp/my-test-05/test1.txt
                     '''
                  }
             }    
         stage ("output") {
             steps {
-                sh "cat /tmp/my-test-04/test1.txt"
+                sh "cat /tmp/my-test-05/test1.txt"
             }
         }
     }
