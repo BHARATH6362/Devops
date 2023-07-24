@@ -16,7 +16,7 @@ pipeline {
             steps {
                 checkout scm
             sh '''
-                aws s3 sync /var/lib/jenkins/workspace/${JOB_NAME}/index2.html s3://cdt-test-build/single-module/
+                aws s3 sync /var/lib/jenkins/workspace/${JOB_NAME}/index2.html s3://git-jenkins-bucket/
                 echo "The file has been uploded"
                  '''
             }
