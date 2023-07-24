@@ -1,5 +1,5 @@
 pipeline {
-    agent {label "slave"}
+    agent any
     parameters {
         choice(
             choices: ['YES','NO'],
@@ -16,7 +16,7 @@ pipeline {
             steps {
                 checkout scm
             sh '''
-                aws s3 sync /var/lib/jenkins/workspace/${JOB_NAME}/xyz.html s3://git-jenkins-bucket/
+                aws s3 sync /var/lib/jenkins/workspace/${JOB_NAME}/index2.html s3://git-jenkins-bucket/
                   '''
                 echo "The file has been uploded"
                 
