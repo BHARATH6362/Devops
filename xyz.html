@@ -1,0 +1,31 @@
+pipeline {
+    agent none
+    parameters {
+        choice(
+            choices: ['YES','NO'],
+            description: 'Choose if Deploymnet should happen for Dev',
+            name: 'CDN'
+        )
+    }
+    stages {
+        stage("To upload a file") {
+            when {
+                expression {params.CDN == "YES"}
+            }
+            agent any
+            steps {
+                checkout scm
+                sh "aws s3 sync /var/lib/jenkins/workspace/${JOB_NAME}/single-module/ s3://cdt-test-build/single-module/"
+                echo "The file has been uploded"
+            }
+        }    
+        stage("Do not upload a file") {
+            when {
+                expression {params.CDN == "NO"}
+            }
+            steps {
+                echo "Do not upload the file"
+            }
+        }
+    }
+}
