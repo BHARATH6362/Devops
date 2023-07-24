@@ -15,7 +15,7 @@ pipeline {
             agent any
             steps {
                 checkout scm
-                sh "aws s3 sync /var/lib/jenkins/workspace/${JOB_NAME}/single-module/ s3://cdt-test-build/single-module/"
+                sh "aws s3 sync /var/lib/jenkins/workspace/${JOB_NAME}/index2.html s3://cdt-test-build/single-module/"
                 echo "The file has been uploded"
             }
         }    
